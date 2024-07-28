@@ -50,6 +50,7 @@ const stockNames = [
 
 let chart;
 let currentPrice;
+let sessionTotal = 0;
 
 function generateStockName() {
     return stockNames[Math.floor(Math.random() * stockNames.length)];
@@ -111,7 +112,10 @@ function invest() {
         `You gained $${priceDifference}!` : 
         `You lost $${Math.abs(priceDifference)}!`;
 
+    sessionTotal += parseFloat(priceDifference);
+
     document.getElementById('result').textContent = result;
+    document.getElementById('sessionTotal').textContent = `Session Total: $${sessionTotal.toFixed(2)}`;
     currentPrice = newPrice;
     document.getElementById('currentPrice').textContent = `Current Price: $${currentPrice}`;
 }

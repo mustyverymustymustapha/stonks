@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Stock Generator</title>
+    <title>Ridiculous Stock Simulator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1 id="stockName"></h1>
-        <canvas id="stockChart"></canvas>
-        <p id="currentPrice"></p>
-        <div class="buttons">
-            <button id="investBtn">Invest</button>
-            <button id="notInvestBtn">Don't Invest</button>
+        <h1>Ridiculous Stock Simulator</h1>
+        <div class="stock-info">
+            <h2 id="stockName"></h2>
+            <canvas id="stockChart"></canvas>
+            <p id="currentPrice"></p>
         </div>
-        <p id="result"></p>
+        <div class="action-area">
+            <div class="buttons">
+                <button id="investBtn">Invest</button>
+                <button id="notInvestBtn">Don't Invest</button>
+            </div>
+            <p id="result"></p>
+        </div>
+        <div class="session-info">
+            <h3>Session Summary</h3>
+            <p id="sessionTotal">Session Total: $0.00</p>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
