@@ -64,5 +64,17 @@ function updateDisplay() {
 
 function invest() {
     const newPrice = (Math.random() * 100 + 50).toFixed(2);
+    const priceDifference = (newPrice - currentPrice).toFixed(2);
+    const result = priceDifference >= 0 ? 
+        `You gained $${priceDifference}!` : 
+        `You lost $${Math.abs(priceDifference)}!`;
 
+    document.getElementById('result').textContent = result;
+    currentPrice = newPrice;
+    document.getElementById('currentPrice').textContent = `Current Price: $${currentPrice}`;
+}
 
+document.getElementById('investBtn').addEventListener('click', invest);
+document.getElementById('notInvestBtn').addEventListener('click', updateDisplay);
+
+updateDisplay();
