@@ -51,6 +51,9 @@ const stockNames = [
 let chart;
 let currentPrice;
 let sessionTotal = 0;
+let notInvestCount = 0;
+let lastNotInvestTime = 0;
+let spendMoneyTimeout;
 
 function generateStockName() {
     return stockNames[Math.floor(Math.random() * stockNames.length)];
@@ -118,9 +121,34 @@ function invest() {
     document.getElementById('sessionTotal').textContent = `Session Total: $${sessionTotal.toFixed(2)}`;
     currentPrice = newPrice;
     document.getElementById('currentPrice').textContent = `Current Price: $${currentPrice}`;
+
+    notInvestCount = 0;
+    clearTimeout(spendMoneyTimeout);
+    document.getElementById('spendMoney').textContent = '';
+}
+
+function notInvest() {
+    const currentTime = new Date().getTime();
+
+    if (currentTime - lastNotInvestTime <= 30000) {
+        notInvestCount++;
+
+        if (notInvestCount >= 10) {
+            document.getElementById('spendMoney').textContent = 'SPEND MONEY';
+            clearTimeout(spendMoneyTimeout);
+            spendMoneyTimeout = setTimeout(() => {
+                document.getElementById('spendMoney').textContent = '';
+            }, 3000);
+        }
+    } else {
+        notInvestCount = 1;
+    }
+
+    lastNotInvestTime = currentTime;
+    updateDisplay();
 }
 
 document.getElementById('investBtn').addEventListener('click', invest);
-document.getElementById('notInvestBtn').addEventListener('click', updateDisplay);
+document.getElementById('notInvestBtn').addEventListener('click', notInvest);
 
 updateDisplay();
