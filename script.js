@@ -1,0 +1,2 @@
+const stockNames = [
+  "Catto INC.",
