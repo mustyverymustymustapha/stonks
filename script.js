@@ -54,6 +54,7 @@ let sessionTotal = 0;
 let notInvestCount = 0;
 let lastNotInvestTime = 0;
 let spendMoneyTimeout;
+let marketCrashTimeout;
 
 function generateStockName() {
     return stockNames[Math.floor(Math.random() * stockNames.length)];
@@ -118,13 +119,17 @@ function invest() {
     sessionTotal += parseFloat(priceDifference);
 
     document.getElementById('result').textContent = result;
-    document.getElementById('sessionTotal').textContent = `Session Total: $${sessionTotal.toFixed(2)}`;
+    updateSessionTotal();
     currentPrice = newPrice;
     document.getElementById('currentPrice').textContent = `Current Price: $${currentPrice}`;
 
     notInvestCount = 0;
     clearTimeout(spendMoneyTimeout);
     document.getElementById('spendMoney').textContent = '';
+
+    if (Math.random() < 0.1) { 
+        marketCrash();
+    }
 }
 
 function notInvest() {
@@ -146,6 +151,26 @@ function notInvest() {
 
     lastNotInvestTime = currentTime;
     updateDisplay();
+}
+
+function marketCrash() {
+    const crashAmount = Math.floor(Math.random() * (300 - 150 + 1)) + 150;
+    sessionTotal -= crashAmount;
+
+    const marketCrashElement = document.getElementById('marketCrash');
+    marketCrashElement.style.display = 'block';
+
+    clearTimeout(marketCrashTimeout);
+    marketCrashTimeout = setTimeout(() => {
+        marketCrashElement.style.display = 'none';
+    }, 6000);
+
+    updateSessionTotal();
+    document.getElementById('result').textContent = `Market crashed! You lost $${crashAmount}!`;
+}
+
+function updateSessionTotal() {
+    document.getElementById('sessionTotal').textContent = `Session Total: $${sessionTotal.toFixed(2)}`;
 }
 
 document.getElementById('investBtn').addEventListener('click', invest);
