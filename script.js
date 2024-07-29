@@ -55,6 +55,7 @@ let notInvestCount = 0;
 let lastNotInvestTime = 0;
 let spendMoneyTimeout;
 let marketCrashTimeout;
+let paycheckTimeout;
 
 function generateStockName() {
     return stockNames[Math.floor(Math.random() * stockNames.length)];
@@ -127,7 +128,7 @@ function invest() {
     clearTimeout(spendMoneyTimeout);
     document.getElementById('spendMoney').textContent = '';
 
-    if (Math.random() < 0.1) { 
+    if (Math.random() < 0.1) { // 10% chance of market crash
         marketCrash();
     }
 }
@@ -173,7 +174,40 @@ function updateSessionTotal() {
     document.getElementById('sessionTotal').textContent = `Session Total: $${sessionTotal.toFixed(2)}`;
 }
 
+function paycheck() {
+    sessionTotal += 250;
+    updateSessionTotal();
+    document.getElementById('result').textContent = 'You received your paycheck of $250!';
+    document.getElementById('paycheckBtn').disabled = true;
+    startPaycheckTimer();
+}
+
+function startPaycheckTimer() {
+    let timeLeft = 90; // 1.5 minutes in seconds
+    const paycheckTimer = document.getElementById('paycheckTimer');
+    const paycheckBtn = document.getElementById('paycheckBtn');
+
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        paycheckTimer.textContent = `Next paycheck in: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        if (timeLeft === 0) {
+            paycheckBtn.disabled = false;
+            paycheckTimer.textContent = 'Paycheck ready!';
+            clearInterval(paycheckInterval);
+        } else {
+            timeLeft--;
+        }
+    }
+
+    updateTimer();
+    const paycheckInterval = setInterval(updateTimer, 1000);
+}
+
 document.getElementById('investBtn').addEventListener('click', invest);
 document.getElementById('notInvestBtn').addEventListener('click', notInvest);
+document.getElementById('paycheckBtn').addEventListener('click', paycheck);
 
 updateDisplay();
+startPaycheckTimer();

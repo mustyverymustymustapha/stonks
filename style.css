@@ -36,17 +36,49 @@ button {
   margin-top: 20px;
 }
 
+.spend-money-warning {
+  color: red;
+  font-weight: bold;
+}
+
 .market-crash {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 48px;
-    font-weight: bold;
-    color: red;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 1000;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  font-weight: bold;
+  color: red;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.paycheck-area {
+  margin-top: 20px;
+}
+
+#paycheckBtn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#paycheckBtn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+#paycheckTimer {
+  font-size: 14px;
+  color: #666;
 }
