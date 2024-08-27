@@ -1,0 +1,1 @@
+want to (fictionally) build your stock portfolio? you have come to the right place. this is a funny investing sim to hone your investing skill ❌ luck ✅. made by me. ![07C5427F-CB03-4377-A455-22168B0F6131](https://github.com/user-attachments/assets/7a2ab53e-df95-4a29-8506-d0b281563f33)
